@@ -20,7 +20,7 @@ export default function MarkersProvider({ children }) {
       const json = await response.json();
       setMarkers(json);
     } catch (err) {
-      console.error('fetchMarkers -> err', err)
+      console.error('fetchMarkers -> err', err);
       setMarkers([]);
     }
   }, []);
