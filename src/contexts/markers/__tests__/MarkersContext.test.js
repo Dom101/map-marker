@@ -57,7 +57,7 @@ test('Should not render any test ID when no markers are returned', async () => {
 
 test('Should display all the components returned by fetch', async () => {
   const markers = ['M1', 'M2', 'M3'];
-  jest.spyOn(global, 'fetch').mockResolvedValue({ json: jest.fn().mockResolvedValue(markers) })
+  jest.spyOn(global, 'fetch').mockResolvedValue({ json: jest.fn().mockResolvedValue(markers) });
 
   const wrapper = render(
     <MarkersProvider>
