@@ -8,6 +8,38 @@ function MapContainer(props) {
   const [activeMarker, setActiveMarker] = useState();
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
+  const markers = [
+    {
+      name: 'Åland Islands',
+      capital: 'Mariehamn',
+      latitude: 60.116667,
+      longitude: 19.9
+    },
+    {
+      name: 'Albania',
+      capital: 'Tirana',
+      latitude: 41,
+      longitude: 20
+    },
+    {
+      name: 'Andorra',
+      capital: 'Andorra la Vella',
+      latitude: 42.5,
+      longitude: 1.5
+    },
+    {
+      name: 'Austria',
+      capital: 'Vienna',
+      latitude: 47.33333333,
+      longitude: 13.33333333
+    },
+    {
+      name: 'Belarus',
+      capital: 'Minsk',
+      latitude: 53,
+      longitude: 28
+    },
+  ];
 
   const onMarkerClicked = (props, marker) => {
     if (isInfoOpen) {
@@ -18,19 +50,30 @@ function MapContainer(props) {
     setIsInfoOpen(true);
   };
 
+  function displayMarkers() {
+    return markers.map((marker, i) =>
+      <Marker
+        key={i}
+        title={marker.name}
+        position={{ lat: marker.latitude, lng: marker.longitude }}
+        onClick={onMarkerClicked}
+      />
+    );
+  }
+
   return (
     <Map
       google={props.google}
-      zoom={8}
+      zoom={2}
       style={mapStyles}
-      initialCenter={{ lat: 47.444, lng: -122.176 }}
+      initialCenter={{ lat: 30, lng: 0 }}
     >
-      <Marker title="test" position={{ lat: 48.00, lng: -122.00 }} onClick={onMarkerClicked} />
+      {displayMarkers()}
       <InfoWindow
         marker={activeMarker}
         visible={isInfoOpen}>
         <div>
-          TEST PLACE
+          {activeMarker ? activeMarker.title : ''}
         </div>
       </InfoWindow>
     </Map>
