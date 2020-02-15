@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import Map from './components/Map';
 import './App.css';
+import MarkersProvider from './contexts/markers/Provider';
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Map />
+      <MarkersProvider>
+        <Map />
+      </MarkersProvider>
     </div>
   );
 }

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
+import MarkersContext from '../contexts/markers/Context';
 import env from '../libs/env';
 
 function MapContainer(props) {
 
   const [activeMarker, setActiveMarker] = useState();
   const [isInfoOpen, setIsInfoOpen] = useState(false);
-  const [markers, setMarkers] = useState([]);
+  const { markers } = useContext(MarkersContext);
 
   const onMarkerClicked = (props, marker) => {
     if (isInfoOpen) {
@@ -28,15 +29,6 @@ function MapContainer(props) {
       />
     );
   }
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(env.get('REACT_APP_MARKER_URL'));
-      const json = await response.json();
-      setMarkers(json);
-    }
-    fetchData();
-  }, []);
 
   return (
     <Map
