@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
 import env from '../libs/env';
@@ -7,39 +7,7 @@ function MapContainer(props) {
 
   const [activeMarker, setActiveMarker] = useState();
   const [isInfoOpen, setIsInfoOpen] = useState(false);
-
-  const markers = [
-    {
-      name: 'Åland Islands',
-      capital: 'Mariehamn',
-      latitude: 60.116667,
-      longitude: 19.9
-    },
-    {
-      name: 'Albania',
-      capital: 'Tirana',
-      latitude: 41,
-      longitude: 20
-    },
-    {
-      name: 'Andorra',
-      capital: 'Andorra la Vella',
-      latitude: 42.5,
-      longitude: 1.5
-    },
-    {
-      name: 'Austria',
-      capital: 'Vienna',
-      latitude: 47.33333333,
-      longitude: 13.33333333
-    },
-    {
-      name: 'Belarus',
-      capital: 'Minsk',
-      latitude: 53,
-      longitude: 28
-    },
-  ];
+  const [markers, setMarkers] = useState([]);
 
   const onMarkerClicked = (props, marker) => {
     if (isInfoOpen) {
@@ -60,6 +28,15 @@ function MapContainer(props) {
       />
     );
   }
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(env.get('REACT_APP_MARKER_URL'));
+      const json = await response.json();
+      setMarkers(json);
+    }
+    fetchData();
+  }, []);
 
   return (
     <Map
