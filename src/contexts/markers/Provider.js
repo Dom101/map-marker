@@ -18,9 +18,7 @@ export default function MarkersProvider({ children }) {
     try {
       const response = await fetch(env.get('REACT_APP_MARKER_URL'));
       const json = await response.json();
-      console.log("TCL: fetchMarkers -> json", json)
       setMarkers(json);
-      console.log("TCL: fetchMarkers -> setMarkers")
     } catch (err) {
       console.error('fetchMarkers -> err', err);
       setMarkers([]);
@@ -29,7 +27,6 @@ export default function MarkersProvider({ children }) {
 
   useEffect(() => {
     fetchMarkers();
-    console.log("TCL: MarkersProvider -> fetchMarkers")
   }, [fetchMarkers]);
 
   return <MarkersContext.Provider value={context}>{children}</MarkersContext.Provider>;

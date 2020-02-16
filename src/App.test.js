@@ -21,7 +21,7 @@ jest.mock('./components/Map', () => () =>
 );
 let wrapper;
 
-test('renders the app', async () => {
+test('renders the app with the provider and map', async () => {
   wrapper = render(<App />);
   expect(global.fetch).toHaveBeenCalledTimes(1);
   expect(global.fetch).toHaveBeenCalledWith('https://test.com');
